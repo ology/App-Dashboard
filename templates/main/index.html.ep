@@ -155,8 +155,9 @@ $(document).ready(function() {
     if (result) {
       fetch("<%= url_for('delete') %>?" + new URLSearchParams({
           cardId: this.dataset.cardid,
-      }));
-      window.location.reload();
+      })).then(() => {
+          window.location.reload();
+      });
     }
   });
 
