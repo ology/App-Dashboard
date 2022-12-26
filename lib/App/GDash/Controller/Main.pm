@@ -17,6 +17,7 @@ sub index ($self) {
       1 => {id=>1,pos=>1,width=>8,title=>'A',text=>'Foo!'},
       2 => {id=>2,pos=>2,width=>4,title=>'B',text=>'Bar?'},
       3 => {id=>3,pos=>3,width=>6,title=>'C',text=>'Baz...'},
+      4 => {id=>4,pos=>4,width=>6,title=>'D',text=>'Derp'},
     };
     store($cards, DASHFILE);
   }
