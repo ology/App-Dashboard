@@ -9,10 +9,11 @@ sub startup ($self) {
   $self->secrets($config->{secrets});
 
   my $r = $self->routes;
-  $r->get('/')      ->to('Main#index') ->name('index');
-  $r->post('/')     ->to('Main#update')->name('update');
-  $r->get('/delete')->to('Main#delete')->name('delete');
-  $r->get('/help')  ->to('Main#help')  ->name('help');
+  $r->get('/')      ->to('Main#index')   ->name('index');
+  $r->post('/')     ->to('Main#update')  ->name('update');
+  $r->get('/delete')->to('Main#delete')  ->name('delete');
+  $r->post('/new')  ->to('Main#new_card')->name('new');
+  $r->get('/help')  ->to('Main#help')    ->name('help');
 }
 
 1;
