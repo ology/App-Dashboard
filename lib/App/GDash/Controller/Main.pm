@@ -93,6 +93,12 @@ sub delete ($self) {
     return $self->redirect_to('index');
   }
   delete $cards->{$id} if exists $cards->{$id};
+  my @by_id = sort { $cards->{$a}{pos} <=> $cards->{$b}{pos} } keys %$cards;
+  my $n = 0;
+  for my $i (@by_id) {
+    $n++;
+    $cards->{$i}{pos} = $n;
+  }
   store($cards, DASHFILE);
   $self->redirect_to('index');
 }
