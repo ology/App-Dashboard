@@ -1,0 +1,142 @@
+% layout 'default';
+
+<h3><a href="/">Dashboard</a>
+<span class="float-right">
+<button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#newCardModal">New Card</button>
+</span>
+</h3>
+
+% my $iterator = 0;
+% my $counter  = 0;
+% for my $card (sort { $cards->{$a}{pos} <=> $cards->{$b}{pos} } keys %$cards) {
+%   $cards->{$card}{width} = $max if $cards->{$card}{width} > $max;
+%   $cards->{$card}{width} = $min if $cards->{$card}{width} < $min;
+
+%   if ($counter == 0) {
+<div class="row">
+%   }
+%   if ($counter + $cards->{$card}{width} > $max) {
+</div>
+<br>
+%     $counter = 0;
+%     redo;
+%   }
+%   $counter += $cards->{$card}{width};
+
+  <div class="col-sm-<%= $cards->{$card}{width} %>">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">
+          <%= $cards->{$card}{title} %>
+          <span class="float-right">
+            <button type="button" name="trigger" class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#settingsModal"
+              data-cardid="<%= $cards->{$card}{id} %>" data-cardposition="<%= $cards->{$card}{pos} %>" data-cardwidth="<%= $cards->{$card}{width} %>" data-cardtitle="<%= $cards->{$card}{title} %>" data-cardtext="<%= $cards->{$card}{text} %>"
+            >Settings</button>
+          </span>
+        </h5>
+      </div>
+      <div class="card-body">
+        <p class="card-text"><%= $cards->{$card}{text} %></p>
+        <a href="#" class="btn btn-sm btn-outline-primary">Refresh</a>
+      </div>
+    </div>
+  </div>
+
+%   if ($iterator == keys(%$cards) - 1) {
+</div>
+%   }
+%   $iterator++;
+
+% }
+
+<!-- Card Modal -->
+<div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="settingsModalLabel">Card Settings</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post" action="<%= url_for('update') %>">
+        <input type="hidden" id="cardId" name="cardId">
+      <div class="modal-body">
+        <div class="form-row form-group">
+          <label for="cardTitle">Card Title:</label>
+          <input type="text" class="form-control" id="cardTitle" name="cardTitle" placeholder="Card Title">
+        </div>
+        <div class="form-row form-group">
+          <label for="cardText">Card Text:</label>
+          <input type="text" class="form-control" id="cardText" name="cardText" placeholder="Card Text">
+        </div>
+        <div class="form-row form-group">
+          <label for="cardPosition">Card Position:</label>
+          <select class="form-control" id="cardPosition" name="cardPosition">
+% for my $n (1 .. keys %$cards) {
+            <option value="<%= $n %>"><%= $n %></option>
+% }
+          </select>
+        </div>
+        <div class="form-row form-group">
+          <label for="cardWidth">Card Width:</label>
+          <select class="form-control" id="cardWidth" name="cardWidth">
+% for my $n (4, 6, 8, 12) {
+            <option value="<%= $n %>"><%= $n %></option>
+% }
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-sm btn-danger" id="deleteCard" data-cardid="">Delete Card</button>
+        <button type="submit" class="btn btn-sm btn-primary">Save Changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- New Card Modal -->
+<div class="modal fade" id="newCardModal" tabindex="-1" role="dialog" aria-labelledby="newCardModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newCardModalLabel">New Card</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+        ...
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+
+  $("button[name='trigger']").click(function() {
+    $("#cardId").val(this.dataset.cardid);
+    $("#cardTitle").val(this.dataset.cardtitle);
+    $("#cardText").val(this.dataset.cardtext);
+    $('#deleteCard').attr('data-cardid', this.dataset.cardid);
+    $("#cardPosition option:selected").removeAttr("selected");
+    $("#cardPosition option[value=" + this.dataset.cardposition + "]").attr("selected", "selected");
+    $("#cardWidth option:selected").removeAttr("selected");
+    $("#cardWidth option[value=" + this.dataset.cardwidth + "]").attr("selected", "selected");
+  });
+
+  $("#deleteCard").click(function() {
+    console.log('Delete:',this.dataset.cardid);
+  });
+
+});
+</script>

@@ -1,0 +1,21 @@
+body {
+  background-color: lightgray;
+}
+.mycontainer {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.padpage {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.small {
+  font-size: small;
+  color: darkgrey;
+}
+.danger {
+  color: red;
+}
