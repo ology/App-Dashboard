@@ -20,7 +20,6 @@ sub index ($self) {
     };
     store($cards, DASHFILE);
   }
-warn __PACKAGE__,' L',__LINE__,' INDEX: ',ddc($cards, {max_width=>128});
   $self->render(
     cards => $cards,
     max   => 12,
