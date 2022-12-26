@@ -97,6 +97,34 @@ sub delete ($self) {
   $self->redirect_to('index');
 }
 
+sub new_card ($self) {
+  my $v = $self->validation;
+  $v->required('cardTitle')->size(1, 50);
+  $v->required('cardText')->size(1, 255);
+  $v->required('cardWidth')->in(4, 6, 8, 12);
+  if ($v->error('cardTitle') || $v->error('cardText') || $v->error('cardWidth')) {
+    $self->flash(error => 'Invalid update');
+    return $self->redirect_to($self->url_for('index'));
+  }
+  my $cards;
+  if (-e DASHFILE) {
+    $cards = retrieve DASHFILE;
+  }
+  else {
+    $self->flash(error => "Can't load dashboard");
+    return $self->redirect_to('index');
+  }
+  my $id = time();
+  $cards->{$id} = {
+    title => $v->param('cardTitle'),
+    text  => $v->param('cardText'),
+    width => $v->param('cardWidth'),
+    pos   => keys(%$cards) + 1,
+  };
+  store($cards, DASHFILE);
+  $self->redirect_to('index');
+}
+
 sub help ($self) { $self->render }
 
 1;
