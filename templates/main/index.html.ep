@@ -81,7 +81,7 @@
         <div class="form-row form-group">
           <label for="cardWidth">Card Width:</label>
           <select class="form-control" id="cardWidth" name="cardWidth">
-% for my $n (4, 6, 8, 12) {
+% for my $n (@$widths) {
             <option value="<%= $n %>"><%= $n %></option>
 % }
           </select>
@@ -121,7 +121,7 @@
         <div class="form-row form-group">
           <label for="cardWidth">Card Width:</label>
           <select class="form-control" id="cardWidth" name="cardWidth">
-% for my $n (4, 6, 8, 12) {
+% for my $n (@$widths) {
             <option value="<%= $n %>"><%= $n %></option>
 % }
           </select>
