@@ -2,8 +2,11 @@ package App::GDash::Controller::Main;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 
 use Data::Dumper::Compact qw(ddc);
+use HTTP::Simple qw(getstore);
 use List::Util qw(first);
+use Mojo::DOM ();
 use Storable qw(retrieve store);
+use XML::RSS ();
 
 use constant DASHFILE => 'dashboard.dat';
 use constant WIDTHS   => [4, 6, 8, 12];
@@ -74,8 +77,36 @@ sub update ($self) {
   $cards->{$id}{title} = $v->param('cardTitle');
   $cards->{$id}{text}  = $v->param('cardText');
   $cards->{$id}{width} = $v->param('cardWidth');
+
+  if ($cards->{$id}{text} =~ /^http.+?\.rss$/) {
+    my $rss_content = 'rss-content.xml';
+    #_get_file($cards->{$id}{text}, $rss_content);
+    my $rss = XML::RSS->new;
+    $rss->parsefile($rss_content);
+    my $content = '<ul>';
+    for my $item ($rss->{items}->@*) {
+      my $dom = Mojo::DOM->new($item->{description});
+      my $text = $dom->all_text;
+      $text = substr $text, 0, 49;
+      $content .= qq|<li><a href="$item->{link}">$text...</a></li>|;
+    }
+    $content .= '</ul>';
+    $cards->{$id}{content} = $content;
+  }
+  else {
+    delete $cards->{$id}{content} if exists $cards->{$id}{content};
+  }
+
   store($cards, DASHFILE);
   $self->redirect_to('index');
+}
+
+sub _get_file {
+    my ($url, $file) = @_;
+    my $status = getstore($url, $file)
+        or die "Can't getstore $url to $file: $!\n";
+    die "Could not get $file from $url\n"
+        unless $status == 200;
 }
 
 sub delete ($self) {
