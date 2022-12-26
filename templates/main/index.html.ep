@@ -36,7 +36,7 @@
         </h5>
       </div>
       <div class="card-body">
-        <p class="card-text"><%= $cards->{$card}{text} %></p>
+        <p class="card-text"><%== $cards->{$card}{text} %></p>
         <a href="#" class="btn btn-sm btn-outline-primary">Refresh</a>
       </div>
     </div>
