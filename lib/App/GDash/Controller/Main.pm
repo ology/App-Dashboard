@@ -6,6 +6,7 @@ use List::Util qw(first);
 use Storable qw(retrieve store);
 
 use constant DASHFILE => 'dashboard.dat';
+use constant WIDTHS   => [4, 6, 8, 12];
 
 sub index ($self) {
   my $cards;
@@ -22,9 +23,10 @@ sub index ($self) {
     store($cards, DASHFILE);
   }
   $self->render(
-    cards => $cards,
-    max   => 12,
-    min   => 4,
+    cards  => $cards,
+    max    => 12,
+    min    => 4,
+    widths => WIDTHS,
   );
 }
 
@@ -42,7 +44,7 @@ sub update ($self) {
   $v->required('cardTitle')->size(1, 50);
   $v->required('cardText')->size(1, 255);
   $v->required('cardPosition')->in(1 .. keys %$cards);
-  $v->required('cardWidth')->in(4, 6, 8, 12);
+  $v->required('cardWidth')->in(WIDTHS->@*);
   if ($v->error('cardId')
     || $v->error('cardTitle') || $v->error('cardText')
     || $v->error('cardPosition') || $v->error('cardWidth')
@@ -107,7 +109,7 @@ sub new_card ($self) {
   my $v = $self->validation;
   $v->required('cardTitle')->size(1, 50);
   $v->required('cardText')->size(1, 255);
-  $v->required('cardWidth')->in(4, 6, 8, 12);
+  $v->required('cardWidth')->in(WIDTHS->@*);
   if ($v->error('cardTitle') || $v->error('cardText') || $v->error('cardWidth')) {
     $self->flash(error => 'Invalid submission');
     return $self->redirect_to($self->url_for('index'));
