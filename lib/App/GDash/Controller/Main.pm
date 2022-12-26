@@ -103,7 +103,7 @@ sub new_card ($self) {
   $v->required('cardText')->size(1, 255);
   $v->required('cardWidth')->in(4, 6, 8, 12);
   if ($v->error('cardTitle') || $v->error('cardText') || $v->error('cardWidth')) {
-    $self->flash(error => 'Invalid update');
+    $self->flash(error => 'Invalid submission');
     return $self->redirect_to($self->url_for('index'));
   }
   my $cards;
