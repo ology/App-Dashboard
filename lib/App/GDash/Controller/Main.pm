@@ -76,6 +76,27 @@ sub update ($self) {
   $self->redirect_to('index');
 }
 
+sub delete ($self) {
+  my $v = $self->validation;
+  $v->required('cardId')->like(qr/^\d+$/);
+  if ($v->error('cardId')) {
+    $self->flash(error => 'Invalid update');
+    return $self->redirect_to($self->url_for('index'));
+  }
+  my $id = $v->param('cardId');
+  my $cards;
+  if (-e DASHFILE) {
+    $cards = retrieve DASHFILE;
+  }
+  else {
+    $self->flash(error => "Can't load dashboard");
+    return $self->redirect_to('index');
+  }
+  delete $cards->{$id} if exists $cards->{$id};
+  store($cards, DASHFILE);
+  $self->redirect_to('index');
+}
+
 sub help ($self) { $self->render }
 
 1;
