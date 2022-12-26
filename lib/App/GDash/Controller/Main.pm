@@ -24,7 +24,7 @@ sub index ($self) {
   $self->render(
     cards => $cards,
     max   => 12,
-    min   => 3,
+    min   => 4,
   );
 }
 
