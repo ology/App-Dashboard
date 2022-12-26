@@ -107,15 +107,31 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <form method="post" action="<%= url_for('new') %>">
+        <input type="hidden" id="cardId" name="cardId">
       <div class="modal-body">
-        <form>
-        ...
-        </form>
+        <div class="form-row form-group">
+          <label for="cardTitle">Card Title:</label>
+          <input type="text" class="form-control" id="cardTitle" name="cardTitle" placeholder="Card Title">
+        </div>
+        <div class="form-row form-group">
+          <label for="cardText">Card Text:</label>
+          <input type="text" class="form-control" id="cardText" name="cardText" placeholder="Card Text">
+        </div>
+        <div class="form-row form-group">
+          <label for="cardWidth">Card Width:</label>
+          <select class="form-control" id="cardWidth" name="cardWidth">
+% for my $n (4, 6, 8, 12) {
+            <option value="<%= $n %>"><%= $n %></option>
+% }
+          </select>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-sm btn-primary">Submit</button>
       </div>
+      </form>
     </div>
   </div>
 </div>
