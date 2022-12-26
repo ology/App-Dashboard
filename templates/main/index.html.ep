@@ -138,9 +138,9 @@ $(document).ready(function() {
     var result = confirm('Are you sure that you want to delete this card?');
     if (result) {
       console.log('Delete:',this.dataset.cardid);
-//      fetch("<%= url_for('delete') %>?" + new URLSearchParams({
-//          cardId: this.dataset.cardid,
-//      }));
+      fetch("<%= url_for('delete') %>?" + new URLSearchParams({
+          cardId: this.dataset.cardid,
+      }));
     }
   });
 
