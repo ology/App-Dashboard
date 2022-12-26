@@ -41,7 +41,7 @@ sub update ($self) {
   $v->required('cardId')->like(qr/^\d+$/);
   $v->required('cardTitle')->size(1, 50);
   $v->required('cardText')->size(1, 255);
-  $v->required('cardPosition')->num;#(1, keys %$cards);
+  $v->required('cardPosition')->in(1 .. keys %$cards);
   $v->required('cardWidth')->in(4, 6, 8, 12);
   if ($v->error('cardId')
     || $v->error('cardTitle') || $v->error('cardText')
