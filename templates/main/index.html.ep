@@ -1,10 +1,12 @@
 % layout 'default';
 
 <h3><a href="/">Dashboard</a>
-<span class="float-right">
-<button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#newCardModal">New Card</button>
+<span class="float-end">
+<button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#newCardModal">New Card</button>
 </span>
 </h3>
+
+<div class="row" data-masonry='{"percentPosition": true }'>
 
 % my $iterator = 0;
 % my $counter  = 0;
@@ -12,24 +14,13 @@
 %   $cards->{$card}{width} = $max if $cards->{$card}{width} > $max;
 %   $cards->{$card}{width} = $min if $cards->{$card}{width} < $min;
 
-%   if ($counter == 0) {
-<div class="row">
-%   }
-%   if ($counter + $cards->{$card}{width} > $max) {
-</div>
-<br>
-%     $counter = 0;
-%     redo;
-%   }
-%   $counter += $cards->{$card}{width};
-
   <div class="col-sm-<%= $cards->{$card}{width} %>">
     <div class="card">
       <div class="card-header">
         <h5 class="card-title">
           <%= $cards->{$card}{title} %>
-          <span class="float-right">
-            <button type="button" name="trigger" class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#settingsModal"
+          <span class="float-end">
+            <button type="button" name="trigger" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#settingsModal"
               data-cardid="<%= $cards->{$card}{id} %>" data-cardposition="<%= $cards->{$card}{pos} %>" data-cardwidth="<%= $cards->{$card}{width} %>" data-cardtitle="<%= $cards->{$card}{title} %>" data-cardtext="<%= $cards->{$card}{text} %>"
             >Settings</button>
           </span>
@@ -42,20 +33,17 @@
     </div>
   </div>
 
-%   if ($iterator == keys(%$cards) - 1) {
-</div>
-%   }
-%   $iterator++;
-
 % }
 
+</div>
+
 <!-- Card Modal -->
-<div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel" aria-hidden="true">
+<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="settingsModalLabel">Card Settings</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title fs-5" id="settingsModalLabel">Card Settings</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -88,7 +76,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-sm btn-danger" id="deleteCard" data-cardid="">Delete Card</button>
         <button type="submit" class="btn btn-sm btn-primary">Save Changes</button>
       </div>
@@ -98,12 +86,12 @@
 </div>
 
 <!-- New Card Modal -->
-<div class="modal fade" id="newCardModal" tabindex="-1" role="dialog" aria-labelledby="newCardModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="newCardModal" tabindex="-1" aria-labelledby="newCardModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="newCardModalLabel">New Card</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title fs-5" id="newCardModalLabel">New Card</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -128,7 +116,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
         <button type="submit" class="btn btn-sm btn-primary">Submit</button>
       </div>
       </form>
