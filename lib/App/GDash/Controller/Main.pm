@@ -114,8 +114,9 @@ sub new_card ($self) {
     $self->flash(error => "Can't load dashboard");
     return $self->redirect_to('index');
   }
+  my $id = time();
   $cards->{$id} = {
-    id    => time(),
+    id    => $id,
     title => $v->param('cardTitle'),
     text  => $v->param('cardText'),
     width => $v->param('cardWidth'),
