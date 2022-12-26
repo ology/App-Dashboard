@@ -89,7 +89,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-sm btn-danger" id="deleteCard" data-cardid="">Delete Card</button>
+        <a href="<%= url_for('delete') %>" class="btn btn-sm btn-danger" id="deleteCard" data-cardid="">Delete Card</a>
         <button type="submit" class="btn btn-sm btn-primary">Save Changes</button>
       </div>
       </form>
