@@ -27,8 +27,14 @@
         </h5>
       </div>
       <div class="card-body">
-        <p class="card-text"><%== $cards->{$card}{text} %></p>
-        <a href="#" class="btn btn-sm btn-outline-primary">Refresh</a>
+        <p class="card-text">
+%   if (exists $cards->{$card}{content}) {
+          <%== $cards->{$card}{content} %>
+%   } else {
+          <%== $cards->{$card}{text} %>
+%   }
+        </p>
+        <a href="<%= url_for('refresh')->query(cardId => $cards->{$card}{id}) %>" class="btn btn-sm btn-outline-primary">Refresh</a>
       </div>
     </div>
   </div>
