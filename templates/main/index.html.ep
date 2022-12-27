@@ -6,7 +6,7 @@
 </span>
 </h3>
 
-<div id="grid" class="row" data-masonry='{"percentPosition": true }'>
+<div id="grid" class="row" data-masonry="">
 
 % for my $card (sort { $cards->{$a}{pos} <=> $cards->{$b}{pos} } keys %$cards) {
 %   $cards->{$card}{width} = $max if $cards->{$card}{width} > $max;
@@ -25,13 +25,15 @@
         </h5>
       </div>
       <div class="card-body">
-        <p class="card-text">
 %   if (exists $cards->{$card}{content}) {
+        <div class="card-text">
           <%== $cards->{$card}{content} %>
+        </div>
 %   } else {
+        <p class="card-text">
           <%== $cards->{$card}{text} %>
-%   }
         </p>
+%   }
         <a href="<%= url_for('refresh')->query(cardId => $cards->{$card}{id}) %>" class="btn btn-sm btn-outline-primary">Refresh</a>
       </div>
     </div>
@@ -100,7 +102,6 @@
         </button>
       </div>
       <form method="post" action="<%= url_for('new') %>">
-        <input type="hidden" id="cardId" name="cardId">
       <div class="modal-body">
         <div class="form-row form-group">
           <label for="cardTitle">Card Title:</label>
@@ -130,13 +131,13 @@
 
 <script>
 $(document).ready(function() {
-
-  $('#grid').imagesLoaded(function() {
-    $('#grid').masonry({
-      itemSelector : '.item',
-      columnWidth : '.col',
-      percentPosition: true
-    });
+  $('#mycontainer').imagesLoaded( function() {
+    $('#grid').attr('data-masonry', '{"percentPosition": true }');
+//    $('#grid').masonry({
+//      itemSelector : '.item',
+//      columnWidth : '.col',
+//      percentPosition: true
+//    });
   });
 
   $("button[name='trigger']").click(function() {
