@@ -14,7 +14,7 @@
 %   $cards->{$card}{width} = $max if $cards->{$card}{width} > $max;
 %   $cards->{$card}{width} = $min if $cards->{$card}{width} < $min;
 
-  <div class="col-sm-<%= $cards->{$card}{width} %>">
+  <div class="col-sm-<%= $cards->{$card}{width} %> mb-3">
     <div class="card">
       <div class="card-header">
         <h5 class="card-title">
