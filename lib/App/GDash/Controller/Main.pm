@@ -104,11 +104,14 @@ sub refresh ($self) {
     my $rss = XML::RSS->new;
     $rss->parsefile($rss_content);
     my $content = '<ul>';
+    my $n = 0;
     for my $item ($rss->{items}->@*) {
+      $n++;
       my $dom = Mojo::DOM->new($item->{description});
       my $text = $dom->all_text;
       $text = substr $text, 0, 49;
       $content .= qq|<li><a href="$item->{link}" target="_blank">$text...</a></li>|;
+      last if $n >= 20;
     }
     $content .= '</ul>';
     $cards->{$id}{content} = $content;
