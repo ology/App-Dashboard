@@ -83,9 +83,9 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-sm btn-danger" id="deleteCard" data-cardid="">Delete Card</button>
-        <button type="submit" class="btn btn-sm btn-primary">Save Changes</button>
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>
+        <button type="button" class="btn btn-sm btn-danger" id="deleteCard" data-cardid=""><i class="fa fa-trash" aria-hidden="true"></i> Delete Card</button>
+        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-share" aria-hidden="true"></i> Save Changes</button>
       </div>
       </form>
     </div>
@@ -122,8 +122,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>
+        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-share" aria-hidden="true"></i> Submit</button>
       </div>
       </form>
     </div>
