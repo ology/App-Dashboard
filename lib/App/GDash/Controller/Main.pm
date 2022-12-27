@@ -80,7 +80,7 @@ sub update ($self) {
 
   if ($cards->{$id}{text} =~ /^http.+?\.rss$/) {
     my $rss_content = 'rss-content.xml';
-    #_get_file($cards->{$id}{text}, $rss_content);
+    _get_file($cards->{$id}{text}, $rss_content);
     my $rss = XML::RSS->new;
     $rss->parsefile($rss_content);
     my $content = '<ul>';
