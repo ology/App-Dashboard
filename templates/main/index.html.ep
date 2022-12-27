@@ -6,10 +6,8 @@
 </span>
 </h3>
 
-<div class="row" data-masonry='{"percentPosition": true }'>
+<div id="grid" class="row" data-masonry='{"percentPosition": true }'>
 
-% my $iterator = 0;
-% my $counter  = 0;
 % for my $card (sort { $cards->{$a}{pos} <=> $cards->{$b}{pos} } keys %$cards) {
 %   $cards->{$card}{width} = $max if $cards->{$card}{width} > $max;
 %   $cards->{$card}{width} = $min if $cards->{$card}{width} < $min;
@@ -132,6 +130,13 @@
 
 <script>
 $(document).ready(function() {
+  $('#grid').imagesLoaded(function() {
+    $('#grid').masonry({
+      itemSelector : '.item',
+      columnWidth : '.col',
+      percentPosition: true
+    });
+  });
 
   $("button[name='trigger']").click(function() {
     $("#cardId").val(this.dataset.cardid);
