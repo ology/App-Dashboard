@@ -1,6 +1,7 @@
 package App::GDash::Controller::Main;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 
+use Capture::Tiny qw(capture);
 use Data::Dumper::Compact qw(ddc);
 use HTTP::Simple qw(getstore);
 use List::Util qw(first);
@@ -120,6 +121,13 @@ sub refresh ($self) {
         $cards->{$id}{content} = $content;
       }
     }
+  }
+  if ($cards->{$id}{text} =~ /^perl:(.+)$/) {
+    my $command = $1;
+    my @ojo = "perl -Mojo -E'$command'";
+    my ($stdout, $stderr, $exit) = capture { system(@ojo) };
+    chomp $stdout;
+    $cards->{$id}{content} = $stderr ? $stderr : $stdout;
   }
   else {
     delete $cards->{$id}{content} if exists $cards->{$id}{content};
