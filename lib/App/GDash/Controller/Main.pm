@@ -36,14 +36,11 @@ sub index ($self) {
 }
 
 sub update ($self) {
-  my $cards;
-  if (-e DASHFILE) {
-    $cards = retrieve DASHFILE;
-  }
-  else {
+  unless (-e DASHFILE) {
     $self->flash(error => "Can't load dashboard");
     return $self->redirect_to('index');
   }
+  my $cards = retrieve DASHFILE;
   my $v = $self->validation;
   $v->required('cardId')->like(qr/^\d+$/);
   $v->required('cardTitle')->size(1, 50);
@@ -91,14 +88,11 @@ sub refresh ($self) {
     $self->flash(error => 'Invalid refresh');
     return $self->redirect_to($self->url_for('index'));
   }
-  my $cards;
-  if (-e DASHFILE) {
-    $cards = retrieve DASHFILE;
-  }
-  else {
+  unless (-e DASHFILE) {
     $self->flash(error => "Can't load dashboard");
     return $self->redirect_to('index');
   }
+  my $cards = retrieve DASHFILE;
   my $id = $v->param('cardId');
   if ($cards->{$id}{text} =~ /^http.+?\.rss$/) {
     my $rss_content = 'rss-content.xml';
@@ -164,14 +158,11 @@ sub delete ($self) {
     $self->flash(error => 'Invalid update');
     return $self->redirect_to($self->url_for('index'));
   }
-  my $cards;
-  if (-e DASHFILE) {
-    $cards = retrieve DASHFILE;
-  }
-  else {
+  unless (-e DASHFILE) {
     $self->flash(error => "Can't load dashboard");
     return $self->redirect_to('index');
   }
+  my $cards = retrieve DASHFILE;
   my $id = $v->param('cardId');
   delete $cards->{$id} if exists $cards->{$id};
   my @by_id = sort { $cards->{$a}{pos} <=> $cards->{$b}{pos} } keys %$cards;
