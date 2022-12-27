@@ -28,6 +28,7 @@
 %   if (exists $cards->{$card}{content}) {
         <div class="card-text">
           <%== $cards->{$card}{content} %>
+          <p></p>
         </div>
 %   } else {
         <p class="card-text">
