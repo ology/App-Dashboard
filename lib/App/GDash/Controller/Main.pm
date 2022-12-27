@@ -135,6 +135,12 @@ sub refresh ($self) {
     chomp $stdout;
     $cards->{$id}{content} = $stderr ? $stderr : $stdout;
   }
+  elsif ($cards->{$id}{text} =~ /^curl:(.+)$/) {
+    my $command = "curl $1";
+    my ($stdout, $stderr, $exit) = capture { system($command) };
+    chomp $stdout;
+    $cards->{$id}{content} = $stdout;
+  }
   else {
     delete $cards->{$id}{content} if exists $cards->{$id}{content};
   }
