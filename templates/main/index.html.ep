@@ -133,11 +133,6 @@
 $(document).ready(function() {
   $('#mycontainer').imagesLoaded( function() {
     $('#grid').attr('data-masonry', '{"percentPosition": true }');
-//    $('#grid').masonry({
-//      itemSelector : '.item',
-//      columnWidth : '.col',
-//      percentPosition: true
-//    });
   });
 
   $("button[name='trigger']").click(function() {
