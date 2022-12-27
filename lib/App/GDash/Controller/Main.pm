@@ -131,8 +131,8 @@ sub refresh ($self) {
 sub _get_file {
     my ($url, $file) = @_;
     my $status = getstore($url, $file)
-        or die "Can't getstore $url to $file: $!\n";
-    die "Could not get $file from $url\n"
+        or warn "Can't getstore $url to $file: $!\n";
+    warn "Could not get $file from $url\n"
         unless $status == 200;
 }
 
