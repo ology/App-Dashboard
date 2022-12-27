@@ -2,7 +2,7 @@
 
 <h3><a href="/">Dashboard</a>
 <span class="float-end">
-<button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#newCardModal">New Card</button>
+<button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#newCardModal"><i class="fa fa-plus" aria-hidden="true"></i></button>
 </span>
 </h3>
 
