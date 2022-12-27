@@ -50,7 +50,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title fs-5" id="settingsModalLabel">Card Settings</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+        <button type="button" class="close btn btn-sm btn-secondary" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -98,7 +98,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title fs-5" id="newCardModalLabel">New Card</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+        <button type="button" class="close btn btn-sm btn-secondary" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
