@@ -106,7 +106,10 @@ sub refresh ($self) {
     if (-e $rss_content) {
       my $rss = XML::RSS->new;
       eval { $rss->parsefile($rss_content) };
-      unless ($@) {
+      if ($@) {
+        warn "Can't parse $rss_content: $@\n";
+      }
+      else {
         my $content = '<ul>';
         my $n = 0;
         for my $item ($rss->{items}->@*) {
@@ -122,7 +125,7 @@ sub refresh ($self) {
       }
     }
   }
-  if ($cards->{$id}{text} =~ /^perl:(.+)$/) {
+  elsif ($cards->{$id}{text} =~ /^perl:(.+)$/) {
     my $command = $1;
     my @ojo = "perl -Mojo -E'$command'";
     my ($stdout, $stderr, $exit) = capture { system(@ojo) };
