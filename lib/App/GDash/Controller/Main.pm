@@ -108,7 +108,7 @@ sub refresh ($self) {
       my $dom = Mojo::DOM->new($item->{description});
       my $text = $dom->all_text;
       $text = substr $text, 0, 49;
-      $content .= qq|<li><a href="$item->{link}">$text...</a></li>|;
+      $content .= qq|<li><a href="$item->{link}" target="_blank">$text...</a></li>|;
     }
     $content .= '</ul>';
     $cards->{$id}{content} = $content;
