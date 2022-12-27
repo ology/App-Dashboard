@@ -130,6 +130,7 @@
 
 <script>
 $(document).ready(function() {
+
   $('#grid').imagesLoaded(function() {
     $('#grid').masonry({
       itemSelector : '.item',
