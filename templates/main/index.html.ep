@@ -1,10 +1,18 @@
 % layout 'default';
 
-<h3><a href="/">Dashboard</a>
-<span class="float-end">
-<button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#newCardModal"><i class="fa fa-plus" aria-hidden="true"></i></button>
-</span>
-</h3>
+<div class="row d-flex justify-content-center">
+  <div class="col">
+    <!-- Draggable default card start -->
+    <div class="card">
+      <div class="card-header">
+        <h3>
+          <a href="<%= url_for('index') %>">Dashboard</a>
+          <span class="float-end">
+            <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#newCardModal"><i class="fa fa-plus" aria-hidden="true"></i></button>
+          </span>
+        </h3>
+      </div>
+      <div class="card-block">
 
 <div id="grid" class="row" data-masonry="">
 
@@ -12,7 +20,7 @@
 %   $cards->{$card}{width} = $max if $cards->{$card}{width} > $max;
 %   $cards->{$card}{width} = $min if $cards->{$card}{width} < $min;
 
-  <div class="col-sm-<%= $cards->{$card}{width} %> mb-3">
+  <div class="col-sm-<%= $cards->{$card}{width} %> mb-3 drag">
     <div class="card">
       <div class="card-header">
         <h5 class="card-title">
@@ -42,6 +50,11 @@
 
 % }
 
+</div>
+
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Card Modal -->
@@ -132,8 +145,38 @@
 
 <script>
 $(document).ready(function() {
-  $('#grid').imagesLoaded( function() {
-    $('#grid').attr('data-masonry', '{"percentPosition": true }');
+  $("#grid").sortable();
+  $("#grid").disableSelection();
+  $(".drag").draggable({ snap: true });
+
+  jQuery.fn.swap = function(b){ 
+      // method from: http://blog.pengoworks.com/index.cfm/2008/9/24/A-quick-and-dirty-swap-method-for-jQuery
+      b = jQuery(b)[0]; 
+      var a = this[0]; 
+      var t = a.parentNode.insertBefore(document.createTextNode(''), a); 
+      b.parentNode.insertBefore(a, b); 
+      t.parentNode.insertBefore(b, t); 
+      t.parentNode.removeChild(t); 
+      return this; 
+  };
+  $(".drag").draggable({ revert: true, helper: "clone" });
+  $(".drag").droppable({
+      accept: ".drag",
+      activeClass: "ui-state-hover",
+      hoverClass: "ui-state-active",
+      drop: function( event, ui ) {
+          var draggable = ui.draggable, droppable = $(this),
+              dragPos = draggable.position(), dropPos = droppable.position();
+          draggable.css({
+              left: dropPos.left+'px',
+              top: dropPos.top+'px'
+          });
+          droppable.css({
+              left: dragPos.left+'px',
+              top: dragPos.top+'px'
+          });
+          draggable.swap(droppable);
+      }
   });
 
   $("button[name='trigger']").click(function() {
