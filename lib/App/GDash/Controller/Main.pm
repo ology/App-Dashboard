@@ -130,8 +130,8 @@ sub refresh ($self) {
   }
   elsif ($cards->{$id}{text} =~ /^perl:(.+)$/) {
     my $command = $1;
-    my @ojo = "perl -Mojo -E'$command'";
-    my ($stdout, $stderr, $exit) = capture { system(@ojo) };
+    my $ojo = "perl -Mojo -E'$command'";
+    my ($stdout, $stderr, $exit) = capture { system($ojo) };
     chomp $stdout;
     $cards->{$id}{content} = $stderr ? $stderr : $stdout;
   }
