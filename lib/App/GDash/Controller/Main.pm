@@ -114,10 +114,13 @@ sub refresh ($self) {
         my $n = 0;
         for my $item ($rss->{items}->@*) {
           $n++;
-          my $dom = Mojo::DOM->new($item->{description});
-          my $text = $dom->all_text;
-          $text = substr $text, 0, 49;
-          $content .= qq|<li><a href="$item->{link}" target="_blank">$text...</a></li>|;
+          my $text = $item->{title};
+          unless ($text) {
+            my $dom = Mojo::DOM->new($item->{description});
+            $text = $dom->all_text;
+            $text = substr($text, 0, 49) . '...';
+          }
+          $content .= qq|<li><a href="$item->{link}" target="_blank">$text</a></li>|;
           last if $n >= 20;
         }
         $content .= '</ul>';
