@@ -3,6 +3,7 @@ use Mojo::Base 'Mojolicious::Controller', -signatures;
 
 use Capture::Tiny qw(capture);
 use Data::Dumper::Compact qw(ddc);
+use Encoding::FixLatin qw(fix_latin);
 use HTTP::Simple qw(getstore);
 use List::Util qw(first);
 use Mojo::DOM ();
@@ -139,7 +140,7 @@ sub refresh ($self) {
     my $command = "curl $1";
     my ($stdout, $stderr, $exit) = capture { system($command) };
     chomp $stdout;
-    $cards->{$id}{content} = $stdout;
+    $cards->{$id}{content} = fix_latin($stdout);
   }
   else {
     delete $cards->{$id}{content} if exists $cards->{$id}{content};
