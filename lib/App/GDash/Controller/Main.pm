@@ -44,7 +44,7 @@ sub update ($self) {
   my $v = $self->validation;
   $v->required('cardId')->like(qr/^\d+$/);
   $v->required('cardTitle')->size(1, 50);
-  $v->required('cardText')->size(1, 512);
+  $v->required('cardText')->size(1, 1024);
   $v->required('cardPosition')->in(1 .. keys %$cards);
   $v->required('cardWidth')->in(WIDTHS->@*);
   if ($v->error('cardId')
@@ -178,7 +178,7 @@ sub delete ($self) {
 sub new_card ($self) {
   my $v = $self->validation;
   $v->required('cardTitle')->size(1, 50);
-  $v->required('cardText')->size(1, 512);
+  $v->required('cardText')->size(1, 1024);
   $v->required('cardWidth')->in(WIDTHS->@*);
   if ($v->error('cardTitle') || $v->error('cardText') || $v->error('cardWidth')) {
     $self->flash(error => 'Invalid submission');
