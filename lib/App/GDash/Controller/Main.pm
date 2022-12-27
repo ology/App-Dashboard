@@ -182,16 +182,13 @@ sub new_card ($self) {
   $v->required('cardWidth')->in(WIDTHS->@*);
   if ($v->error('cardTitle') || $v->error('cardText') || $v->error('cardWidth')) {
     $self->flash(error => 'Invalid submission');
-    return $self->redirect_to($self->url_for('index'));
+    return $self->redirect_to('index');
   }
-  my $cards;
-  if (-e DASHFILE) {
-    $cards = retrieve DASHFILE;
-  }
-  else {
+  unless (-e DASHFILE) {
     $self->flash(error => "Can't load dashboard");
     return $self->redirect_to('index');
   }
+  my $cards = retrieve DASHFILE;
   my $id = time();
   $cards->{$id} = {
     id    => $id,
