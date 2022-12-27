@@ -59,11 +59,11 @@
       <div class="modal-body">
         <div class="form-row form-group">
           <label for="cardTitle">Card Title:</label>
-          <input type="text" class="form-control" id="cardTitle" name="cardTitle" placeholder="Card Title">
+          <input type="text" class="form-control" id="cardTitle" name="cardTitle" placeholder="Blah blah blah">
         </div>
         <div class="form-row form-group">
           <label for="cardText">Card Text:</label>
-          <input type="text" class="form-control" id="cardText" name="cardText" placeholder="Card Text">
+          <input type="text" class="form-control" id="cardText" name="cardText" placeholder="HTML, perl:..., curl:...">
         </div>
         <div class="form-row form-group">
           <label for="cardPosition">Card Position:</label>
@@ -106,11 +106,11 @@
       <div class="modal-body">
         <div class="form-row form-group">
           <label for="cardTitle">Card Title:</label>
-          <input type="text" class="form-control" id="cardTitle" name="cardTitle" placeholder="Card Title">
+          <input type="text" class="form-control" id="cardTitle" name="cardTitle" placeholder="Blah blah blah">
         </div>
         <div class="form-row form-group">
           <label for="cardText">Card Text:</label>
-          <input type="text" class="form-control" id="cardText" name="cardText" placeholder="Card Text">
+          <input type="text" class="form-control" id="cardText" name="cardText" placeholder="HTML, perl:..., curl:...">
         </div>
         <div class="form-row form-group">
           <label for="cardWidth">Card Width:</label>
