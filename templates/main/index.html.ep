@@ -20,7 +20,7 @@
         <h5 class="card-title">
           <%= $cards->{$card}{title} %>
           <span class="float-end">
-            <button type="button" name="trigger" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#settingsModal"
+            <button type="button" name="trigger" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#settingsModal"
               data-cardid="<%= $cards->{$card}{id} %>" data-cardposition="<%= $cards->{$card}{pos} %>" data-cardwidth="<%= $cards->{$card}{width} %>" data-cardtitle="<%= $cards->{$card}{title} %>" data-cardtext="<%= $cards->{$card}{text} %>"
             >Settings</button>
           </span>
