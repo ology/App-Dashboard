@@ -131,7 +131,7 @@
 
 <script>
 $(document).ready(function() {
-  $('#mycontainer').imagesLoaded( function() {
+  $('#grid').imagesLoaded( function() {
     $('#grid').attr('data-masonry', '{"percentPosition": true }');
   });
 
