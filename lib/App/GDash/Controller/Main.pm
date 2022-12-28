@@ -132,7 +132,7 @@ sub refresh ($self) {
   }
   elsif ($cards->{$id}{text} =~ /^curl:(.+)$/) {
     my $command = "curl $1";
-    my ($stdout, $stderr, $exit) = capture { system($command) };
+    my ($stdout) = capture { system($command) };
     chomp $stdout;
     $cards->{$id}{content} = fix_latin($stdout);
   }
