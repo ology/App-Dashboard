@@ -94,10 +94,11 @@ sub refresh ($self) {
   }
   my $cards = retrieve DASHFILE;
   my $id = $v->param('cardId');
-  if ($cards->{$id}{text} =~ /^http.+?\.rss$/) {
+  if ($cards->{$id}{text} =~ /^rss:(.+)$/) {
+    my $feed = $1;
     my $rss_content = 'rss-content.xml';
     unlink $rss_content;
-    _get_file($cards->{$id}{text}, $rss_content);
+    _get_file($feed, $rss_content);
     if (-e $rss_content) {
       my $rss = XML::RSS->new;
       eval { $rss->parsefile($rss_content) };
