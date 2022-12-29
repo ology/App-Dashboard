@@ -34,16 +34,16 @@
       </div>
       <div class="card-body">
 %   if (exists $cards->{$card}{content}) {
-        <div class="card-text">
+        <div id="card_text_<%= $cards->{$card}{id} %>" class="card-text">
           <%== $cards->{$card}{content} %>
           <p></p>
         </div>
 %   } else {
-        <p class="card-text">
+        <p id="card_text_<%= $cards->{$card}{id} %>" class="card-text">
           <%== $cards->{$card}{text} %>
         </p>
 %   }
-        <a href="<%= url_for('refresh')->query(cardId => $cards->{$card}{id}) %>" class="btn btn-sm btn-light"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+        <button name="refresh" class="btn btn-sm btn-light" data-cardid="<%= $cards->{$card}{id} %>"><i class="fa fa-refresh" aria-hidden="true"></i></a>
       </div>
     </div>
   </div>
@@ -199,6 +199,18 @@ $(document).ready(function() {
           window.location.reload();
       });
     }
+  });
+
+  $("button[name='refresh']").click(function() {
+    var cardId = $(this).attr('data-cardid');
+    $.ajax({
+        url: "<%= url_for('refresh') %>",
+        method: "GET",
+        data: { cardId: cardId },
+        success: function (data, status) {
+          $('#card_text_' + cardId).html(data);
+        }
+    });
   });
 
 });

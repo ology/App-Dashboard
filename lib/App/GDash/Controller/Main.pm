@@ -141,7 +141,7 @@ sub refresh ($self) {
     delete $cards->{$id}{content} if exists $cards->{$id}{content};
   }
   store($cards, DASHFILE);
-  $self->redirect_to('index');
+  $self->render(text => ($cards->{$id}{content} || $cards->{$id}{text}))
 }
 
 sub _get_file {
