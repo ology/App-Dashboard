@@ -45,7 +45,8 @@
 %   }
       </div>
       <div class="card-footer">
-        <button name="refresh" class="btn btn-sm btn-light" data-cardid="<%= $cards->{$card}{id} %>"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+        <button name="refresh" class="btn btn-sm btn-light" data-cardid="<%= $cards->{$card}{id} %>"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+        <span id="card-footer-<%= $cards->{$card}{id} %>" class="float-end"></span>
       </div>
     </div>
   </div>
@@ -205,12 +206,15 @@ $(document).ready(function() {
 
   $("button[name='refresh']").click(function() {
     var cardId = $(this).attr('data-cardid');
+    var now = new Date;
     $.ajax({
         url: "<%= url_for('refresh') %>",
         method: "GET",
         data: { cardId: cardId },
         success: function (data, status) {
+          var updated = 'Last: ' + now.toISOString();
           $('#card_text_' + cardId).html(data);
+          $('#card-footer-' + cardId).html(updated);
         }
     });
   });
