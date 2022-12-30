@@ -1,14 +1,7 @@
 package App::GDash::Controller::Main;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 
-use Capture::Tiny qw(capture);
-use Data::Dumper::Compact qw(ddc);
-use Encoding::FixLatin qw(fix_latin);
-use HTTP::Simple qw(getstore);
-use List::Util qw(first);
-use Mojo::DOM ();
 use Storable qw(retrieve store);
-use XML::RSS ();
 
 use App::GDash::Controller::Command qw(rss_cmd perl_cmd curl_cmd);
 
@@ -97,61 +90,22 @@ sub refresh ($self) {
   my $cards = retrieve DASHFILE;
   my $id = $v->param('cardId');
   if ($cards->{$id}{text} =~ /^rss:(.+)$/) {
-    my $feed = $1;
-    my $rss_content = 'rss-content.xml';
-    unlink $rss_content;
-    _get_file($feed, $rss_content);
-    if (-e $rss_content) {
-      my $rss = XML::RSS->new;
-      eval { $rss->parsefile($rss_content) };
-      if ($@) {
-        warn "Can't parse $rss_content: $@\n";
-      }
-      else {
-        my $content = '<ul>';
-        my $n = 0;
-        for my $item ($rss->{items}->@*) {
-          $n++;
-          my $text = $item->{title};
-          unless ($text) {
-            my $dom = Mojo::DOM->new($item->{description});
-            $text = $dom->all_text;
-            $text = substr($text, 0, 49) . '...';
-          }
-          $content .= qq|<li><a href="$item->{link}" target="_blank">$text</a></li>|;
-          last if $n >= 20;
-        }
-        $content .= '</ul>';
-        $cards->{$id}{content} = $content;
-      }
-    }
+    my $content = rss_cmd($1);
+    $cards->{$id}{content} = $content;
   }
   elsif ($cards->{$id}{text} =~ /^perl:(.+)$/) {
-    my $command = "perl -Mojo -E'$1'";
-    return 'Invalid' if $command =~ /\bsystem\b/;
-    my ($stdout, $stderr, $exit) = capture { system($command) };
-    chomp $stdout;
-    $cards->{$id}{content} = $stderr ? $stderr : $stdout;
+    my $content = perl_cmd($1);
+    $cards->{$id}{content} = $content;
   }
   elsif ($cards->{$id}{text} =~ /^curl:(.+)$/) {
-    my $command = "curl $1";
-    my ($stdout) = capture { system($command) };
-    chomp $stdout;
-    $cards->{$id}{content} = fix_latin($stdout);
+    my $content = curl_cmd($1);
+    $cards->{$id}{content} = $content;
   }
   else {
     delete $cards->{$id}{content} if exists $cards->{$id}{content};
   }
   store($cards, DASHFILE);
   $self->render(text => ($cards->{$id}{content} || $cards->{$id}{text}))
-}
-
-sub _get_file {
-    my ($url, $file) = @_;
-    my $status = getstore($url, $file)
-        or warn "Can't getstore $url to $file: $!\n";
-    warn "Could not get $file from $url\n"
-        unless $status == 200;
 }
 
 sub delete ($self) {
