@@ -10,6 +10,8 @@ use Mojo::DOM ();
 use Storable qw(retrieve store);
 use XML::RSS ();
 
+use App::GDash::Controller::Command qw(rss_cmd perl_cmd curl_cmd);
+
 use constant DASHFILE => 'dashboard.dat';
 use constant WIDTHS   => [4, 6, 8, 12];
 
