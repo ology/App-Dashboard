@@ -34,12 +34,12 @@
       </div>
       <div class="card-body">
 %   if (exists $cards->{$card}{content}) {
-        <div id="card_text_<%= $cards->{$card}{id} %>" class="card-text">
+        <div id="card-text-<%= $cards->{$card}{id} %>" class="card-text">
           <%== $cards->{$card}{content} %>
           <p></p>
         </div>
 %   } else {
-        <p id="card_text_<%= $cards->{$card}{id} %>" class="card-text">
+        <p id="card-text-<%= $cards->{$card}{id} %>" class="card-text">
           <%== $cards->{$card}{text} %>
         </p>
 %   }
@@ -222,7 +222,7 @@ $(document).ready(function() {
         method: "GET",
         data: { cardId: cardId },
         success: function (data, status) {
-          $('#card_text_' + cardId).html(data);
+          $('#card-text-' + cardId).html(data);
           $('#card-footer-' + cardId).html(updated);
         }
     });
