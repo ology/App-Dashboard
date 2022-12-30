@@ -126,6 +126,7 @@ sub refresh ($self) {
   }
   elsif ($cards->{$id}{text} =~ /^perl:(.+)$/) {
     my $command = "perl -Mojo -E'$1'";
+    return 'Invalid' if $command =~ /\bsystem\b/;
     my ($stdout, $stderr, $exit) = capture { system($command) };
     chomp $stdout;
     $cards->{$id}{content} = $stderr ? $stderr : $stdout;
