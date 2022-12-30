@@ -36,7 +36,6 @@
 %   if (exists $cards->{$card}{content}) {
         <div id="card-text-<%= $cards->{$card}{id} %>" class="card-text">
           <%== $cards->{$card}{content} %>
-          <p></p>
         </div>
 %   } else {
         <p id="card-text-<%= $cards->{$card}{id} %>" class="card-text">
