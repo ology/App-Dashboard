@@ -207,7 +207,16 @@ $(document).ready(function() {
   $("button[name='refresh']").click(function() {
     var cardId = $(this).attr('data-cardid');
     var now = new Date;
-    var updated = 'Last: ' + now.toISOString();
+    var options = {
+      timeZone: "America/Los_Angeles",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    };
+    var updated = 'Last: ' + now.toLocaleString('en-US', options);
     $.ajax({
         url: "<%= url_for('refresh') %>",
         method: "GET",
