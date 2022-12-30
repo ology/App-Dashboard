@@ -6,7 +6,10 @@ use HTTP::Simple qw(getstore);
 use Mojo::DOM ();
 use XML::RSS ();
 
-sub rss {
+use Exporter 'import';
+our @EXPORT = qw(rss_cmd perl_cmd curl_cmd);
+
+sub rss_cmd {
   my ($feed) = @_;
   my $content = '';
   my $rss_content = 'rss-content.xml';
@@ -38,7 +41,7 @@ sub rss {
   return $content;
 }
 
-sub perl {
+sub perl_cmd {
   my ($code) = @_;
   my $command = "perl -Mojo -E'$code'";
   my $content = '';
@@ -48,7 +51,7 @@ sub perl {
   return $stderr ? $stderr : $stdout;
 }
 
-sub curl {
+sub curl_cmd {
   my ($code) = @_;
   my $command = "curl $code";
   my ($stdout) = capture { system($command) };
