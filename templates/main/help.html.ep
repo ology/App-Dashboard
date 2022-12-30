@@ -1,7 +1,7 @@
 % layout 'default';
-      <ul>
-        <li>What?</li>
-        <li>Why?</li>
-        <li>How?</li>
-        <li>When?</li>
-      </ul>
+<ul>
+  <li>What?</li>
+  <li>Why?</li>
+  <li>How?</li>
+  <li>When?</li>
+</ul>
