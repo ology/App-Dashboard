@@ -86,7 +86,7 @@ sub refresh ($self) {
   $v->required('cardId')->like(qr/^\d+$/);
   if ($v->error('cardId')) {
     $self->flash(error => 'Invalid refresh');
-    return $self->redirect_to($self->url_for('index'));
+    return $self->redirect_to('index');
   }
   unless (-e DASHFILE) {
     $self->flash(error => "Can't load dashboard");
