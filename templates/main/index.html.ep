@@ -207,12 +207,12 @@ $(document).ready(function() {
   $("button[name='refresh']").click(function() {
     var cardId = $(this).attr('data-cardid');
     var now = new Date;
+    var updated = 'Last: ' + now.toISOString();
     $.ajax({
         url: "<%= url_for('refresh') %>",
         method: "GET",
         data: { cardId: cardId },
         success: function (data, status) {
-          var updated = 'Last: ' + now.toISOString();
           $('#card_text_' + cardId).html(data);
           $('#card-footer-' + cardId).html(updated);
         }
