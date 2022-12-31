@@ -44,7 +44,6 @@ sub rss_cmd {
 sub perl_cmd {
   my ($code) = @_;
   my $command = "perl -Mojo -E'$code'";
-  my $content = '';
   return 'Invalid' if $command =~ /\bsystem\b/;
   my ($stdout, $stderr) = capture { system($command) };
   chomp $stdout;
