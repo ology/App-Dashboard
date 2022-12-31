@@ -3,7 +3,7 @@
 <div class="row d-flex justify-content-center">
   <div class="col">
     <!-- Draggable default card start -->
-    <div class="card bg-transparent text-dark">
+    <div class="card bg-transparent text-dark border-0">
       <div class="card-header">
         <h3>
           <a href="<%= url_for('index') %>">Dashboard</a>
