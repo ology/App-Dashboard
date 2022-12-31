@@ -63,7 +63,7 @@ sub _get_file {
     my $status = getstore($url, $file)
         or warn "Can't getstore $url to $file: $!\n";
     warn "Could not get $file from $url\n"
-        unless $status == 200;
+        if $status && $status != 200;
 }
 
 1;
