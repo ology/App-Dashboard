@@ -1,7 +1,7 @@
 package App::GDash::Controller::Command;
 
 use Capture::Tiny qw(capture);
-use Encoding::FixLatin qw(fix_latin);
+use Encoding::FixLatin::XS qw(fix_latin);
 use HTTP::Simple qw(getstore);
 use Mojo::DOM ();
 use XML::RSS ();
