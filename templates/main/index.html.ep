@@ -14,7 +14,7 @@
       </div>
       <div class="card-block">
 
-<div id="grid" class="row" data-masonry="">
+<div id="grid" data-masonry="">
 
 % for my $card (sort { $cards->{$a}{pos} <=> $cards->{$b}{pos} } keys %$cards) {
 %   $cards->{$card}{width} = $max if $cards->{$card}{width} > $max;
