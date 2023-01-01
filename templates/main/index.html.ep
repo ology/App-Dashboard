@@ -147,6 +147,13 @@
 
 <script>
 $(document).ready(function() {
+  var $grid = $('#grid');
+  $grid.imagesLoaded(function(){
+      $grid.masonry({
+          itemSelector: '.card'
+      });
+  });
+
   $("#grid").sortable();
   $("#grid").disableSelection();
   $(".drag").draggable({ snap: true });
