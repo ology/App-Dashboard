@@ -78,7 +78,7 @@
         </div>
         <div class="form-row form-group">
           <label for="cardText">Card Text:</label>
-          <input type="text" class="form-control" id="cardText" name="cardText" placeholder="RSS, HTML, perl:..., curl:...">
+          <textarea class="form-control" id="cardText" name="cardText" placeholder="RSS, HTML, perl:..., curl:..."></textarea>
         </div>
         <div class="form-row form-group">
           <label for="cardPosition">Card Position:</label>
@@ -125,7 +125,7 @@
         </div>
         <div class="form-row form-group">
           <label for="cardText">Card Text:</label>
-          <input type="text" class="form-control" id="cardText" name="cardText" placeholder="RSS, HTML, perl:..., curl:...">
+          <textarea class="form-control" id="cardText" name="cardText" placeholder="RSS, HTML, perl:..., curl:..."></textarea>
         </div>
         <div class="form-row form-group">
           <label for="cardWidth">Card Width:</label>
