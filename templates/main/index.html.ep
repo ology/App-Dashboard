@@ -176,6 +176,7 @@ $(document).ready(function() {
       drop: function( event, ui ) {
           var draggable = ui.draggable, droppable = $(this),
               dragPos = draggable.position(), dropPos = droppable.position();
+//console.log(dragPos,dropPos);
           draggable.css({
               left: dropPos.left+'px',
               top: dropPos.top+'px'
