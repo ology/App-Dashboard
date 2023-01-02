@@ -1,7 +1,7 @@
 % layout 'default';
 <h5>Some examples of card text:</h5>
 <ul>
-  <li><pre>&lt;img src="https://radar.weather.gov/ridge/standard/CONUS_loop.gif" style="display: block; margin-left: auto; margin-right: auto;"></pre></li>
+  <li><pre>&lt;img src="https://radar.weather.gov/ridge/standard/CONUS_loop.gif" style="display:block; margin-left:auto; margin-right:auto; max-width:100%; max-height:100%;"></pre></li>
   <li><pre>rss:https://apod.nasa.gov/apod.rss</pre></li>
   <li><pre>curl:http://192.168.100.115:3000/now_playing</pre></li>
   <li><pre>curl:wttr.in/Bend?format="%c+%t+(%f)+Humid:+%h+Wind:+%w+Precip:+%p+%m\n"</pre></li>
