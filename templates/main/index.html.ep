@@ -190,7 +190,9 @@ $(document).ready(function() {
               method: "GET",
               data: { x: droppable.data("cardid"), y: draggable.data("cardid")},
               success: function (data, status) {
-                  console.log('SWAPPED!');
+                  $grid.masonry({
+                      itemSelector: '.card'
+                  });
               }
           });
       }
