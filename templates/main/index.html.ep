@@ -177,12 +177,12 @@ $(document).ready(function() {
           var draggable = ui.draggable, droppable = $(this),
               dragPos = draggable.position(), dropPos = droppable.position();
           draggable.css({
-              left: dropPos.left+'px',
-              top: dropPos.top+'px'
+              left: dropPos.left + 'px',
+              top: dropPos.top + 'px'
           });
           droppable.css({
-              left: dragPos.left+'px',
-              top: dragPos.top+'px'
+              left: dragPos.left + 'px',
+              top: dragPos.top + 'px'
           });
           draggable.swap(droppable);
           $.ajax({
