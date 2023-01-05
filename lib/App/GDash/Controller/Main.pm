@@ -76,6 +76,26 @@ sub update ($self) {
   $self->redirect_to('index');
 }
 
+sub swap ($self) {
+  my $v = $self->validation;
+  $v->required('x')->like(qr/^\d+$/);
+  $v->required('y')->like(qr/^\d+$/);
+  if ($v->error('x') || $v->error('y')) {
+    return $self->render(json => {}, status => 400);
+  }
+  unless (-e DASHFILE) {
+    return $self->render(json => {}, status => 400);
+  }
+  my $cards = retrieve DASHFILE;
+  my $x = $v->param('x');
+  my $y = $v->param('y');
+  my $x_pos = $cards->{$x}{pos};
+  $cards->{$x}{pos} = $cards->{$y}{pos};
+  $cards->{$y}{pos} = $x_pos;
+  store($cards, DASHFILE);
+  $self->render(json => {}, status => 200);
+}
+
 sub refresh ($self) {
   my $v = $self->validation;
   $v->required('cardId')->like(qr/^\d+$/);
