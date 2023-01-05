@@ -20,7 +20,7 @@
 %   $cards->{$card}{width} = $max if $cards->{$card}{width} > $max;
 %   $cards->{$card}{width} = $min if $cards->{$card}{width} < $min;
 
-  <div class="col-sm-<%= $cards->{$card}{width} %> mb-3 drag">
+  <div class="col-sm-<%= $cards->{$card}{width} %> mb-3 drag" data-cardid="<%= $cards->{$card}{id} %>" data-cardposition="<%= $cards->{$card}{pos} %>">
     <div class="card">
       <div class="card-header">
         <h5 class="card-title">
@@ -176,7 +176,6 @@ $(document).ready(function() {
       drop: function( event, ui ) {
           var draggable = ui.draggable, droppable = $(this),
               dragPos = draggable.position(), dropPos = droppable.position();
-//console.log(dragPos,dropPos);
           draggable.css({
               left: dropPos.left+'px',
               top: dropPos.top+'px'
@@ -186,6 +185,14 @@ $(document).ready(function() {
               top: dragPos.top+'px'
           });
           draggable.swap(droppable);
+          $.ajax({
+              url: "<%= url_for('swap') %>",
+              method: "GET",
+              data: { x: droppable.data("cardid"), y: draggable.data("cardid")},
+              success: function (data, status) {
+                  console.log('SWAPPED!');
+              }
+          });
       }
   });
 
