@@ -4,7 +4,7 @@
   <li><pre>&lt;img src="https://radar.weather.gov/ridge/standard/CONUS_loop.gif" style="display:block; margin-left:auto; margin-right:auto; max-width:100%; max-height:100%;"></pre></li>
   <li><pre>rss:https://apod.nasa.gov/apod.rss</pre></li>
   <li><pre>curl:http://192.168.100.115:3000/now_playing</pre></li>
-  <li><pre>curl:wttr.in/Bend?format="%c+%t+(%f)+Humid:+%h+Wind:+%w+Precip:+%p+%m\n"</pre></li>
+  <li><pre>curl:wttr.in/Bend?format="%c+%t+(%f)+Humid:+%h+Wind:+%w+Precip:+%p+%m\n"\&m</pre></li>
   <li><pre>perl:say g("https://www.brainyquote.com/quote_of_the_day")->dom->at(q|div[class="grid-item qb clearfix bqQt"]|)->all_text</pre></li>
   <li>Please use alternative quoting syntax for perl scripts instead of single quotes (<code>'</code>). For example: <code>say q|Hello!|;</code>
   <li>A tradingview.net div widget</pre></li>
