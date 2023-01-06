@@ -27,7 +27,7 @@
           <%= $cards->{$card}{title} %>
           <span class="float-end">
             <button type="button" name="trigger" class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#settingsModal"
-              data-cardid="<%= $cards->{$card}{id} %>" data-cardposition="<%= $cards->{$card}{pos} %>" data-cardwidth="<%= $cards->{$card}{width} %>" data-cardtitle="<%= $cards->{$card}{title} %>" data-cardtext="<%= $cards->{$card}{text} %>"
+              data-cardid="<%= $cards->{$card}{id} %>" data-cardposition="<%= $cards->{$card}{pos} %>" data-cardwidth="<%= $cards->{$card}{width} %>" data-cardtitle="<%= $cards->{$card}{title} %>" data-cardtext="<%= $cards->{$card}{text} %>" data-showrefresh="<%= $cards->{$card}{refresh} %>"
             ><i class="fa fa-gear" aria-hidden="true"></i></button>
           </span>
         </h5>
@@ -44,8 +44,10 @@
 %   }
       </div>
       <div class="card-footer">
+%   if ($cards->{$card}{refresh}) {
         <button name="refresh" class="btn btn-sm btn-light" data-cardid="<%= $cards->{$card}{id} %>"><i class="fa fa-refresh" aria-hidden="true"></i></button>
         <span id="card-footer-<%= $cards->{$card}{id} %>" class="float-end"></span>
+%   }
       </div>
     </div>
   </div>
@@ -97,6 +99,11 @@
           </select>
         </div>
       </div>
+      <div class="form-check">
+        <input class="" type="checkbox" value="1" id="showRefresh" name="showRefresh">
+        <label class="form-check-label" for="showRefresh">Show refresh button</label>
+        <p></p>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>
         <button type="button" class="btn btn-sm btn-danger" id="deleteCard" data-cardid=""><i class="fa fa-trash" aria-hidden="true"></i> Delete Card</button>
@@ -135,6 +142,11 @@
 % }
           </select>
         </div>
+      </div>
+      <div class="form-check">
+        <input class="" type="checkbox" value="" id="showRefresh" name="showRefresh" checked>
+        <label class="form-check-label" for="showRefresh">Show refresh button</label>
+        <p></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>
@@ -207,6 +219,10 @@ $(document).ready(function() {
     $("#cardPosition option[value=" + this.dataset.cardposition + "]").attr("selected", "selected");
     $("#cardWidth option:selected").removeAttr("selected");
     $("#cardWidth option[value=" + this.dataset.cardwidth + "]").attr("selected", "selected");
+    $("#showRefresh").prop('checked', false);
+    if (this.dataset.showrefresh == 1) {
+      $("#showRefresh").prop('checked', true);
+    }
   });
 
   $("#deleteCard").click(function() {

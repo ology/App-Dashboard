@@ -15,10 +15,10 @@ sub index ($self) {
   }
   else {
     $cards = {
-      1 => {id=>1,pos=>1,width=>8,title=>'A',text=>'Foo!'},
-      2 => {id=>2,pos=>2,width=>4,title=>'B',text=>'Bar?'},
-      3 => {id=>3,pos=>3,width=>6,title=>'C',text=>'Baz...'},
-      4 => {id=>4,pos=>4,width=>6,title=>'D',text=>'Derp'},
+      1 => {id=>1,pos=>1,width=>8,title=>'A',text=>'Foo!',refresh=>1},
+      2 => {id=>2,pos=>2,width=>4,title=>'B',text=>'Bar?',refresh=>1},
+      3 => {id=>3,pos=>3,width=>6,title=>'C',text=>'Baz...',refresh=>1},
+      4 => {id=>4,pos=>4,width=>6,title=>'D',text=>'Derp',refresh=>1},
     };
     store($cards, DASHFILE);
   }
@@ -42,9 +42,12 @@ sub update ($self) {
   $v->required('cardText')->size(1, 1024);
   $v->required('cardPosition')->in(1 .. keys %$cards);
   $v->required('cardWidth')->in(WIDTHS->@*);
+  $v->optional('showRefresh');
   if ($v->error('cardId')
-    || $v->error('cardTitle') || $v->error('cardText')
-    || $v->error('cardPosition') || $v->error('cardWidth')
+    || $v->error('cardTitle')
+    || $v->error('cardText')
+    || $v->error('cardPosition')
+    || $v->error('cardWidth')
   ) {
     $self->flash(error => 'Invalid update');
     return $self->redirect_to('index');
@@ -68,9 +71,10 @@ sub update ($self) {
       $cards->{$i}{pos} = $n;
     }
   }
-  $cards->{$id}{title} = $v->param('cardTitle');
-  $cards->{$id}{text}  = $v->param('cardText');
-  $cards->{$id}{width} = $v->param('cardWidth');
+  $cards->{$id}{title}   = $v->param('cardTitle');
+  $cards->{$id}{text}    = $v->param('cardText');
+  $cards->{$id}{width}   = $v->param('cardWidth');
+  $cards->{$id}{refresh} = $v->param('showRefresh') ? 1 : 0;
 
   store($cards, DASHFILE);
   $self->redirect_to('index');
@@ -157,7 +161,11 @@ sub new_card ($self) {
   $v->required('cardTitle')->size(1, 50);
   $v->required('cardText')->size(1, 1024);
   $v->required('cardWidth')->in(WIDTHS->@*);
-  if ($v->error('cardTitle') || $v->error('cardText') || $v->error('cardWidth')) {
+  $v->optional('showRefresh');
+  if ($v->error('cardTitle')
+    || $v->error('cardText')
+    || $v->error('cardWidth')
+) {
     $self->flash(error => 'Invalid submission');
     return $self->redirect_to('index');
   }
@@ -168,11 +176,12 @@ sub new_card ($self) {
   my $cards = retrieve DASHFILE;
   my $id = time();
   $cards->{$id} = {
-    id    => $id,
-    title => $v->param('cardTitle'),
-    text  => $v->param('cardText'),
-    width => $v->param('cardWidth'),
-    pos   => keys(%$cards) + 1,
+    id      => $id,
+    title   => $v->param('cardTitle'),
+    text    => $v->param('cardText'),
+    width   => $v->param('cardWidth'),
+    pos     => keys(%$cards) + 1,
+    refresh => $v->param('showRefresh') ? 1 : 0,
   };
   store($cards, DASHFILE);
   $self->redirect_to('index');
