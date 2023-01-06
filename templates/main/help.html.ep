@@ -8,4 +8,5 @@
   <li><pre>perl:say g("https://www.brainyquote.com/quote_of_the_day")->dom->at(q|div[class="grid-item qb clearfix bqQt"]|)->all_text</pre></li>
   <li>Please use alternative quoting syntax for perl scripts instead of single quotes (<code>'</code>). For example: <code>say q|Hello!|;</code>
   <li>A tradingview.net div widget</pre></li>
+  <li>A simple input-submit form with <code>target="_blank"</code></li>
 </ul>
